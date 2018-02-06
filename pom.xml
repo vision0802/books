@@ -2,9 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.vision.github</groupId>
-    <artifactId>books</artifactId>
+    <groupId>org.vision.github.books</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0.0</version>
+    <modules>
+        <module>Data Structure and Algorithm</module>
+    </modules>
     <packaging>pom</packaging>
 
     <name>books</name>
@@ -86,7 +89,21 @@
                 <artifactId>logcenter-sdk</artifactId>
                 <version>${logcenter-sdk.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>
