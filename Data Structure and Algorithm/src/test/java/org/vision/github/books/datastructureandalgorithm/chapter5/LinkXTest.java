@@ -62,4 +62,19 @@ public class LinkXTest {
         System.out.println("pop: " + firstLastLinkListQueue.pop());
         firstLastLinkListQueue.displayQueue();
     }
+
+    @Test public void testSortedSingleLinkList(){
+        LinkX.SortedSingleLinkList sortedSingleLinkList = new LinkX.SortedSingleLinkList();
+
+        sortedSingleLinkList.insert(30,30.0);
+        sortedSingleLinkList.insert(23,23.0);
+        sortedSingleLinkList.insert(14,14.0);
+        sortedSingleLinkList.insert(15,15.0);
+        sortedSingleLinkList.insert(12,12.0);
+        sortedSingleLinkList.insert(14,14.0);
+        sortedSingleLinkList.insert(20,20.0);
+        sortedSingleLinkList.insert(15,15.0);
+
+        sortedSingleLinkList.displayList();
+    }
 }

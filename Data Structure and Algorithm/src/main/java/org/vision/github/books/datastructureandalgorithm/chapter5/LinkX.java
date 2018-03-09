@@ -183,4 +183,53 @@ public class LinkX {
         }
     }
 
+    /** 有序单向链表,小的放在前面 */
+    protected static class SortedSingleLinkList {
+        private Link first;
+
+        public SortedSingleLinkList(){ first = null; }
+
+        public boolean isEmpty(){ return Objects.isNull(first); }
+
+        /** 新增链节点,考虑特殊情况(满足的位置first之前,last之后) */
+        public void insert(int iData,double dData){
+            Link newLink = new Link(iData,dData);
+            /** 如果链表是空的,该链节点就是链表头 */
+            if(isEmpty()){ first = newLink; return; }
+
+            /** 如果链表不是空的,就需要找到合适的位置(起码得知道上一个链节点和下一个链节点) */
+            Link prious = null, next = null, current = first;
+            while(Objects.nonNull(current)){
+                /** 如果新的链节点符合这里,记录下当前节点 */
+                if(iData <= current.getIData()){ next = current; break; }
+
+                prious = current; current = current.getNext();
+            }
+
+            if(Objects.isNull(prious)){ newLink.setNext(first); first = newLink; return; }
+
+            if(Objects.isNull(next)){ prious.setNext(newLink); return; }
+
+            prious.setNext(newLink); newLink.setNext(next);
+        }
+
+        /** 从链表头移除链节点 */
+        public Link remove(){
+            Link temp = first;
+            first = first.getNext();
+            return temp;
+        }
+
+        /** 遍历链表的每个链节点 */
+        public void displayList(){
+            System.out.println("print link list from first to last");
+            Link current = first;
+            while (Objects.nonNull(current)){
+                current.displayLink();
+                current = current.getNext();
+            }
+            System.out.println();
+        }
+    }
+
 }
