@@ -232,4 +232,94 @@ public class LinkX {
         }
     }
 
+    /** 链节点需要有next、previous的引用 */
+    @Data protected static class DoubleLink{
+        public int iData;
+        public double dData;
+        public DoubleLink next;
+        private DoubleLink previous;
+
+        public DoubleLink(int iData,double dData){ setIData(iData); setDData(dData); }
+        public void displayLink(){ System.out.print("{"+iData+", "+dData+"} "); }
+    }
+
+    /** 双向双端链表 */
+    protected static class DoubleLinkList {
+        private DoubleLink first,last;
+
+        public DoubleLinkList(){ first = last = null; }
+
+        public boolean isEmpty(){ return Objects.isNull(first); }
+
+        /** 链表头添加链节点 */
+        public void insertFirst(int iData, double dData){
+            DoubleLink doubleLink = new DoubleLink(iData, dData);
+            /** 如果是空链表,则first、last都指向这个新的链节点,next和preious不用设置 */
+            if(isEmpty()) { first = last = doubleLink; return; }
+
+            /** 待添加的链节点的next指向当前的链表头(first) */
+            doubleLink.setNext(first);
+            /** 当前的链表头(first)的previous指向待新增的链节点(doubleLink) */
+            first.previous = doubleLink;
+            /** 链表头指针重新指向新的链节点 */
+            first = doubleLink;
+        }
+
+        /** 链表尾添加链节点 */
+        public void insertLast(int iData,int dData){
+            if(isEmpty()){ insertFirst(iData,dData); return; }
+
+            DoubleLink doubleLink = new DoubleLink(iData,dData);
+
+            last.setNext(doubleLink);
+            doubleLink.setPrevious(last);
+            last = doubleLink;
+        }
+
+        /** 从链表头移除 */
+        public DoubleLink deleteFirst(){
+            DoubleLink temp = first;
+            /** 如果链表只有一个链节点,移除后尾节点指向null. */
+            if(Objects.isNull(first.getNext())){ last = null; }
+            /** 切断当前链表头与第二个链节点的关系 */
+            first.getNext().setPrevious(null);
+            /** 重新给first指向 */
+            first = first.getNext();
+            return temp;
+        }
+
+        /** 从链表尾移除 */
+        public DoubleLink deleteLast(){
+            DoubleLink temp = last;
+            /** 如果链表只有一个节点,将first指向null */
+            if(Objects.isNull(last.getPrevious())){ first = null; }
+            /** 切断倒数第二个链节点与倒数第一个链节点的关系 */
+            last.getPrevious().setNext(null);
+            /** 指定新的last */
+            last = last.getPrevious();
+            return temp;
+        }
+
+        public boolean insertAfter(int key,double dData){
+            DoubleLink current = first;
+
+            while (current.getDData() != key){
+                current = current.next;
+                if(Objects.isNull(current)) { return false; }
+            }
+
+            DoubleLink newLink = new DoubleLink(key,dData);
+            if(current == last){ last = newLink; }
+            else {
+                newLink.next = current.next;
+                current.next.previous = newLink;
+            }
+            current.next = newLink;
+            newLink.previous = current;
+            return true;
+        }
+
+    }
+
+
 }
